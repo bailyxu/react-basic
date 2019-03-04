@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+  </head>
+  <body>
+    <div id='example'></div>
+
+    <script type='text/babel'>
+      var AComponent = React.createClass({
+        handleChange:function(){
+          this.props.funcSave(this.refs.myInput.value);
+        },
+        render:function(){
+          //每一次触发onChange 将输入框中值 保存在Main组件 （子与父）
+          return <input
+           ref='myInput'
+           type='text' onChange={this.handleChange} />
+        }
+      })
+      var BComponent = React.createClass({
+        handleClick:function(){
+          //尝试1：直接读取父组件中通过属性myValue所传递来的值
+          console.log("B组件读取A组件的数据为"+this.props.myValue);
+          //尝试2：直接读取父组件中通过属性传来的方法
+          // var AValue = this.props.funcGet();
+          // console.log(AValue);
+        },
+        render:function(){
+          return <button 
+          onClick={this.handleClick} >clickMe</button>
+        }
+      })
+      var MainComponent = React.createClass({
+        //result:"",
+        getInitialState:function(){
+          return {result:''}
+        },
+        save:function(msg){
+          console.log("父组件接受到的数据是"+msg);
+          //this.result = msg;
+          this.setState({result:msg})
+        },
+        get:function(){
+          //return this.result;
+          return this.state.result
+        },
+        render:function(){
+          return <div>
+            <AComponent 
+            funcSave={this.save}></AComponent>
+            <BComponent myValue={this.state.result}></BComponent>
+          </div>
+        }
+      })
+
+      ReactDOM.render(
+        <MainComponent></MainComponent>,
+        document.getElementById('example')
+      )
+      
+    </script>
+  </body>
+</html>

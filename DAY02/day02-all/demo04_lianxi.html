@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+  </head>
+  <body>
+    <div id='example'>
+    </div>
+
+    <script type='text/babel'>
+      //创建组件
+      var Test = React.createClass({
+        //状态的初始化
+        getInitialState:function(){
+          return {opacityValue:0}
+        },
+        componentDidMount:function(){
+          console.log('组件挂载完毕')
+          setInterval(()=>{
+            var nowValue = this.state.opacityValue;
+            nowValue+=0.1;
+            if(nowValue > 1){
+              nowValue = 0;
+            }
+            this.setState({opacityValue:nowValue})
+          },500);
+        },
+        render:function(){
+          return <h1 
+style={{opacity:this.state.opacityValue}}> 
+          it is a  header 
+          </h1>
+        }
+      })
+
+      ReactDOM.render(
+        <Test></Test>,
+        document.getElementById('example')
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+  </head>
+  <body>
+    <div id='example'></div>
+
+    <script type='text/babel'>
+      ReactDOM.render(
+        <div>
+          <h3>{100+200}</h3>
+          <p> it is a paragraph</p>
+          <span>it is a span element</span>
+        </div>
+        ,
+        document.getElementById('example')
+      );
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+  </head>
+  <body>
+    <div id='example'></div>
+
+    <script type='text/babel'>
+      var MyButton = React.createClass({
+        handleClick:function(){
+          console.log('btn is clicked');
+          //调用通过属性传递来的方法
+          this.props.func(2);
+        },
+        render:function(){
+          return <button 
+          onClick={this.handleClick} >
+            {this.props.btnName}
+            </button>
+        }
+      })
+      
+      var MyNavbar = React.createClass({
+        forward:function(step){
+          console.log('成功的前进了'+step+"步");
+        },
+        back:function(step){
+          console.log('成功的后退了'+step+'步');
+        },
+        render:function(){
+          return <div>
+           <MyButton 
+            func={this.forward}
+            btnName='前进'></MyButton>
+           <MyButton 
+            func={this.back}
+            btnName='后退'></MyButton>
+          </div>
+        }
+      })
+
+      ReactDOM.render(
+          <MyNavbar></MyNavbar>,
+          document.getElementById('example')
+        );
+
+
+    </script>
+  </body>
+</html>

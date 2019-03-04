@@ -1,0 +1,148 @@
+一、ReactNative概述
+
+1、移动端开发的常见的3种方式
+  ①WebApp
+	使用前端技术来编写的，可以在移动端设备的浏览器中运行的app，提供类似原生app体验
+	跨平台性 性能不如原生
+  ②NativeApp
+	(android/ios/wp/bb/..)
+	采用的SDK（software development kit软件开发包）和java、oc，编写可以安装并运行在移动端设备的app，称之为原生的应用程序
+	性能好 跨平台没有优势
+  ③HyBridApp
+	混合编程：使用前端技术结合着原生技术 来生成的可以安装在手机操作系统的app 
+	
+2、概述
+	what?
+	 通过js和react，构建移动端的原生的应用程序
+	why?
+	  ①开发成本很低，即使不了解真正的原生开发，也不影响构建nativeApp
+	  ②free
+	  ③原生应用程序性能很好
+	where？
+	  前端人员可以使用RN来实现原生移动端的app开发
+	how?
+	 方案1：
+	  npm install -g create-react-native-app
+	  create-react-native-app my-app
+	  cd my-app/
+	  npm start
+	 方案2：
+	  react-native-cli
+
+3、搭建环境
+	①完成模拟器的安装和启动
+	②安装一个app-debug.apk到模拟器
+	  app-debug.apk的作用：
+	    ①配置要连接的开发服务器的ip地址和端口号
+	    windows+R -> cmd -> ipconfig
+	    172.163.100.139
+	    ②设置手工刷新、热加载
+	    ③可以允许在浏览器console中去查看控制台的输出信息
+	③启动pc端的开发服务器 
+	  ①准备一个工程模板
+	  ②将reactNativeForStu.zip统一放到c/xampp/htdocs/framework/react
+	  解压缩到reactNativeForStu文件夹
+	  ③打开vscode，选择打开上述工程
+	  c/xampp/htdocs/framework/react/reactNativeForStu/reactNative/myapp
+	  ④打开集成终端，执行npm start
+
+二、ReactNative使用
+ReactJS用到了React开发时的五大核心概念，
+ReactNative也是使用五大核心概念，结合着js调用由RN所封装的原生组件进行编程，而生成的原生的app。
+
+ RN的工作方式：
+	在RN中所调用的任何一个组件，在对应平台运行时，都会变成该平台下的原生的视图控件。
+	不论在什么平台上，View都会直接对应一个平台的原生视图，无论它是UIView、<div>还是android.view.View
+
+ 注意事项：
+	①如果导出的类，没有加default,引入类加上花括号；否则是无需加上花括号
+	②在RN中 不允许出现任何的html标签
+
+  1、组件的创建和使用
+    ①app/components/demo01/demo01.js
+    ②创建组件
+      import React,{Component} from 'react';
+      import {Text} from 'react-native';
+
+      export default class Demo01Component extends Component{
+	render(){
+	  return <Text>Hello RN</Text>
+	}
+      }
+     
+    ③使用
+	找到根组件 index.android.js 
+
+	import Demo01Component from './app/component/demo01/demo01'
+
+	<Demo01Component></Demo01Component>
+
+  2、Text
+    是用来显示一段文本内容
+     import {Text} from 'react-native'
+
+     <Text>hello</Text>
+  
+  3、View
+    是用来指定一个容器
+      import {View}   from 'react-native''
+      <View>
+	<Text></Text>
+        <Text></Text>
+      </View>
+  
+  4、StyleSheet
+    import {StyleSheet} from 'react-native'
+
+    //创建样式类
+    const myStyles = StyleSheet.create({
+      myText:{
+      }
+    })
+
+    //使用
+    <Text style={myStyles.myText}></Text>
+
+    可以给一个组件类 同时指定多个样式类:
+     <Text style={[styles.bigblue, styles.red]}></Text>
+
+  5、Image
+    import <Image> from 'react-native'
+    //加载本地的图片
+    <Image source={require('imgPath')}></Image>
+    //加载网络图片
+    <Image source={{uri:'imgUrl'}}></Image>
+
+    注意事项：
+      通过require加载本地资源图片时，是不允许在路径存在任何的运算！
+
+  6、state在RN的使用
+    读和写和之前是一致
+    初始化的方式：把数据定义在构造函数中
+    constructor(){
+       super();//实现继承的类当中的构造函数
+       this.state = {
+         imgName:'1.jpg'
+       }
+    }
+
+
+  7、Button
+    import {Button} from 'react-native';
+
+    <Button title='clickMe' onPress={this.handlePress}></Button>
+
+    练习：demo05_lianxi/demo05.js
+    在组件类中 渲染一个Text、Button，
+    Text默认显示0，点击Button，数字自增
+
+    组件的创建和使用
+    Text/Button
+    state
+
+
+  每日一练：
+   demo06_lianxi/demo06.js
+
+   组件类：
+     渲染一个Text标签，在组件渲染完毕之后，启动一个定时器，修改透明度（0 0.1 0.2 ~~ 1 0..）

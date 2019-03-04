@@ -1,0 +1,127 @@
+一、state
+  把组件比作是一个状态机，组件中的数据 通过状态进行管理
+
+  3个基本操作
+    1、初始化
+	getInitialState:function(){
+	  return {
+	   myState1:true,
+	   myState2:false}
+	}
+    2、获取
+        this.state.myState1
+    3、修改
+	this.setState(
+		{myState1:false},
+		function(){
+		 //状态设置成功之后的回调函数
+		}	
+	)
+
+  状态的功能：
+	①管理数据 （3个基本操作）
+	②将数据绑定到视图
+
+  练习：(:- 11:20)
+  将综合练习中Main组件的数据的处理 按照状态来进行处理
+	
+  React的5大核心:
+	 ①jsx 可以帮助更好的封装组件类
+	 ②component 构建ui
+	 ③props  完成父子之间相互的通信
+	 ④ref 通过引用找到组件实例或者元素本身
+	 ⑤state 管理数据、完成数据到视图的绑定
+
+二、lifecycle
+  Vue:
+	create/mount/update/destroy
+	beforeCreate
+	created
+  Angular:
+	OnInit OnDestroy
+  React:
+	mount/update/unmount
+	①挂载
+	 componentWillMount
+	 componentDidMount
+	②更新
+	 componentWillUpdate(nextProps,nextState)
+	 componentDidUpdate(prevProps,prevState)
+	 componentWillReceiveProps
+	 componentDidReceiveProps
+	③移除
+  	 componentWillUnmount
+	
+	注意事项：
+	 ①this.refs.**获取元素或者组件实例，必须等到componentDidMount之后
+	 ②调用组件时通过属性传来的值发生变化时，或者组件内部的状态发生变化时，才会执行和update相关的处理函数
+	 ③和update相关的处理函数 是有参数的！
+
+  练习：创建一个组件，该组件渲染一个H1标签（:- 14:30）
+  要求在组件挂载完毕之后，启动定时器来修改透明度 (0 0.1 0.2 --1 0 0.1)
+
+  分析：
+   ①componentDidMount
+   ②状态的初始化、读、写
+   <h1 style={{opacity:this.state.**}}>
+   </h1>
+
+ 注意：
+ jsx在编写html标签时候，并不是支持html所有的属性
+  style {{}}
+  class --> className
+  for --> htmlFor
+
+
+三、表单
+ 给表单元素 指定了value/checked/selected等相关属性，表单元素称之为受控表达元素。
+
+ 反之，就是非受控表单元素
+
+ 解决方案：
+  方案1： value --> defaultValue
+  方案2： 
+	①初始化状态
+	②将状态的值绑定value属性
+	③onChange事件处理函数中 修改状态
+
+  
+    jsx/component/props/ref/state/lifecycle
+
+注意事项：通过属性传递给子组件的数据，在子组件中是只读的，是不允许修改的。
+
+四、综合练习
+   1、三连棋
+    GameInit.html
+	①一共有3个组件
+	 Game 
+	 Board  调用了Square9次
+	 Square(就是一个按钮)
+	②点击Square组件需要操作
+	  切换用户 X->O->X
+	  保存棋盘信息 数组
+	(:- 16:20)
+	③在Board组件中定义一个方法，来修改状态中数据(xIsNext 取反/squares 在指定下标保存x或者o)；
+	然后将方法传递给Square组件，当按钮按下时来调用该方法
+
+	④判断输赢
+	 在哪个组件中判断输赢
+	 Board/Square
+
+	 this.calculateWinner()
+	 if( this.state.squares.indexOf(null) == -1)
+
+   2、ToDoBox
+   组件树:
+   ToDoBox = ToDoInput + ToDoList(多个ToDoItem)
+   
+	     步骤1：完成组件的创建和调用
+	     步骤2：实现add
+		①到ToDoBox组件完成状态的初始化：数组
+		②子与父的通信(todoinput-->todobox)
+		  第一步：在父组件中 定义一个带有参数的方法
+		  第二步：把这个方法通过属性传递给子组件
+		  第三步:子组件中点击add，调用通过属性传递来的方法同时完成参数的传递
+		③todobox将状态传递给todolist，动态创建多个todoitem
+
+	     步骤3：实现delete

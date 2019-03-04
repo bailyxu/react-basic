@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+  </head>
+  <body>
+    <div id='example'></div>
+
+    <script type='text/babel'>
+      var MyInput = React.createClass({
+        render:function(){
+          return <div>
+            <label>{this.props.labelName}</label>
+            <input type='text' placeholder={this.props.tips}/>
+          </div>
+        }
+      })
+
+      var MyButton = React.createClass({
+        render:function(){
+          return <button>{this.props.btnName}</button>
+        }
+      })
+
+      var MyLogin = React.createClass({
+        render:function(){
+          return <div>
+            <MyInput labelName="用户名" tips='请输入用户名'></MyInput>
+            <MyInput labelName="密码" tips='请输入密码'></MyInput>
+            <MyButton btnName='注册'></MyButton>
+            <MyButton btnName='登录'></MyButton>
+          </div>
+        }
+      })
+
+      ReactDOM.render(
+          <MyLogin></MyLogin>,
+          document.getElementById('example')
+      )
+    </script>
+  </body>
+</html>

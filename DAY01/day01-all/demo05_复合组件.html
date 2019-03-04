@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+  </head>
+  <body>
+    <div id='example'></div>
+
+    <script type='text/babel'>
+      var MyHeader = React.createClass({
+        render:function(){
+          return <h2>这是页头组件</h2>
+        }
+      })
+
+      var MyCart = React.createClass({
+        render:function(){
+          return <div>
+            <MyHeader></MyHeader>
+            <ul>
+              <li>商品1</li>
+              <li>商品2</li>
+              <li>商品3</li>
+            </ul>
+          </div>
+        }
+      })
+
+      ReactDOM.render(
+        <MyCart></MyCart>,
+        document.getElementById('example')
+      )
+    </script>
+
+  </body>
+</html>

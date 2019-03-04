@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+  </head>
+  <body>
+    <div id='example'></div>
+
+    <script type='text/babel'>
+      var ToDoItem = React.createClass({
+        render:function(){
+          return <li>
+            <button>delete</button>
+            <span>写代码</span>
+          </li>
+        }
+      })
+
+      var ToDoList = React.createClass({
+        render:function(){
+          return <ul>
+            <ToDoItem></ToDoItem>
+            <ToDoItem></ToDoItem>
+          </ul>
+        }
+      })
+
+      var ToDoInput = React.createClass({
+        render:function(){
+          return <div>
+            <h2>待做事项列表</h2>
+            <input type='text'/>
+            <button>add</button>
+          </div>
+        }
+      })
+
+      var ToDoBox = React.createClass({
+        render:function(){
+          return <div>
+           <ToDoInput></ToDoInput>
+           <ToDoList></ToDoList>
+          </div>
+        }
+      })
+      ReactDOM.render(
+        <ToDoBox></ToDoBox>,
+        document.getElementById('example')
+      );
+    </script>
+    
+  </body>
+</html>

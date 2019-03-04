@@ -1,0 +1,114 @@
+*****************Vue*********
+1、vue.js:435 [Vue warn]: Error compiling template:
+
+
+            <h2>这是页头</h2>
+            <button>登录</button>
+        
+
+- Component template should contain exactly one root element. If you are using v-if on multiple elements, use v-else-if to chain them instead.
+
+
+解决方案：在最外边 包上一个容器（不允许直接返回多个元素）
+
+2、vue.js:435 [Vue warn]: Unknown custom element: <my-footer> - did you register the component correctly? For recursive components, make sure to provide the "name" option.
+
+原因：你把局部组件当成全局组件去使用了
+
+解决方案：
+	正确的注册组件
+
+3、 The "data" option should be a function that returns a per-instance value in component definitions.
+
+原因：在组件中去初始化数据 不允许给data直接赋值一个对象
+
+解决方案： Vue.component('',{
+		   data:function(){
+			return {}
+		   }
+		})
+
+4、Uncaught TypeError: Cannot read property 'push' of undefined
+
+原因：push前面的那个变量，其实undefined
+
+解决方案：
+	this 通过箭头函数来解决问题
+
+5、ERROR in ./src/assets/img/favicon.ico
+Module parse failed: C:\xampp\htdocs\framework\vue\project\tpls\src\assets\img\favicon.ico Unexpected character '' (1:0)
+You may need an appropriate loader to handle this file type.
+(Source code omitted for this binary file)
+
+
+解决方案：找到build/webpack.base.conf.js
+在41行加上 |ico 
+
+
+6、No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:8080' is therefore not allowed access.
+
+跨域问题
+
+
+*****************ng*********
+一、Template parse errors:
+'demo01' is not a known element:
+1. If 'demo01' is an Angular component, then verify that it is part of this module.
+2. If 'demo01' is a Web Component then add "CUSTOM_ELEMENTS_SCHEMA" to the '@NgModule.schemas' of this component to suppress this message. ("
+  <h1>Hello {{name}}</h1>
+  [ERROR ->]<demo01></demo01>
+  "): AppComponent@2:2 ; Zone: <root> ; Task: Promise.then ; Value: SyntaxError Error: Template parse errors:
+'demo01' is not a known element:
+
+
+没有给组件指定 它属于哪个模块（因为ng是以为基本单位，任何一个组件都得指定属于哪个模块）
+
+2、
+	Can't have multiple template bindings on one element. Use only one attribute named 'template' or prefixed with * ("
+                <tr 
+                *ngIf="stu.score>60"
+                [ERROR ->]*ngFor="let stu of stuList">
+                    <td>{{stu.name}}</td>
+                    <td>{{stu."):
+
+	不能在一个标签中 使用多个结构型指令
+	解决思路：Angular的<ng-container>是一个分组元素，但它不会污染样式或元素布局，因为 Angular 压根不会把它放进 DOM 中。
+
+3、
+zone.js:522 Unhandled Promise rejection: Template parse errors:
+Can't bind to 'ngModel' since it isn't a known property of 'input'. 
+
+input不认识ngModel
+让当前组件所属的模块 指定依赖于FormsModule
+
+4、EXCEPTION: Error in ./AppComponent class AppComponent - inline template:1:4 caused by: No provider for RouterOutletMap!
+
+在自定义的路由模块中，forChild->forRoot
+
+5、EXCEPTION: Uncaught (in promise): Error: Cannot find primary outlet to load 'Demo16LoginComponent'
+Error: Cannot find primary outlet to load 'Demo16LoginComponent'
+
+忘记指定router-outlet
+加上<router-outlet></router-outlet>
+
+6、Cannot read property 'title' of undefined
+
+//原因：
+变量目前是undefined
+
+
+*****************react*********
+1、Uncaught SyntaxError: embedded: Adjacent JSX elements must be wrapped in an enclosing tag (4:8)
+
+不允许直接渲染多个元素
+
+
+
+
+
+
+
+
+
+
+

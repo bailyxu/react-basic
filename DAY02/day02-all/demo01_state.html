@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+  </head>
+  <body>
+    <div id='example'></div>
+
+    <script type='text/babel'>
+       //创建一个组件类
+       var SwitchComponent = 
+       React.createClass({
+         getInitialState:function(){
+           return {myValue:false,myAdd:''}
+         },
+         handleClick:function(){
+           //修改状态，为当前状态相反的值
+           var nowValue = this.state.myValue;
+           //setState是一个异步操作
+           this.setState(
+              {myValue:!nowValue},
+              function(){
+                console.log(this.state.myValue);
+              }
+             );
+           
+         },
+         render:function(){
+           console.log('component is rendering...');
+           return <button 
+           onClick={this.handleClick} >
+             {this.state.myValue?'开':'关'}
+           </button>
+         }
+       })
+
+       ReactDOM.render(
+         <SwitchComponent></SwitchComponent>,
+          document.getElementById('example')
+       );
+    </script>
+  </body>
+</html>

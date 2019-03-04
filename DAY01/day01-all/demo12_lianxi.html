@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+  </head>
+  <body>
+    <div id='example'></div>
+
+    <script type='text/babel'>
+      var AComponent = React.createClass({
+        handleChange:function(){
+          this.props.funcSave(this.refs.myInput.value);
+        },
+        render:function(){
+          //每一次触发onChange 将输入框中值 保存在Main组件 （子与父）
+          return <input
+           ref='myInput'
+           type='text' onChange={this.handleChange} />
+        }
+      })
+      var BComponent = React.createClass({
+        render:function(){
+          return <button>clickMe</button>
+        }
+      })
+      var MainComponent = React.createClass({
+        save:function(msg){
+          console.log("父组件接受到的数据是"+msg);
+        },
+        render:function(){
+          return <div>
+            <AComponent funcSave={this.save}></AComponent>
+            <BComponent></BComponent>
+          </div>
+        }
+      })
+
+      ReactDOM.render(
+        <MainComponent></MainComponent>,
+        document.getElementById('example')
+      )
+      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+  </head>
+  <body>
+    <div id='example'></div>
+    
+    <script type='text/babel'>
+      var Test = React.createClass({
+        getInitialState:function(){
+          return {myValue:''}
+        },
+        componentWillMount:function(){
+          console.log('准备挂载');
+          console.log(this.refs.myInput);
+        },
+        componentDidMount:function(){
+          console.log('挂载完毕');
+          console.log(this.refs.myInput);
+        },
+        //准备更新的时候，是可以通过参数得到要更新的props和state
+        componentWillUpdate:function(nextProps,nextState){
+          console.log(arguments);
+          console.log('准备更新');
+        },
+        //更新完成之后，是通过参数可以知道更新之前的数据的样子
+        componentDidUpdate:function(prevProps,prevState){
+          console.log('更新完成');
+        },
+        handleChange:function(){
+          //修改状态
+          // event.target.value
+          // this.refs.myInput.value
+          this.setState({
+              myValue:this.refs.myInput.value
+            });
+        },
+        render:function(){
+          return <div>
+            <input onChange={this.handleChange} type='text' ref='myInput'/>
+            <button>clickMe</button>
+          </div>
+        }
+      })
+
+      ReactDOM.render(
+        <Test></Test>,
+        document.getElementById('example')
+      )
+    </script>
+  </body>
+</html>
